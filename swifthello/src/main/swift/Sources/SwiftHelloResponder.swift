@@ -1,7 +1,5 @@
 
-
 import java_swift
-
 
 /// interface com.jh.SwiftHelloResponder ///
 
@@ -19,7 +17,7 @@ public protocol SwiftHelloResponder: JavaProtocol {
 
 }
 
-public class SwiftHelloResponderForward: JNIObjectForward, SwiftHelloResponder {
+open class SwiftHelloResponderForward: JNIObjectForward, SwiftHelloResponder {
 
     private static var SwiftHelloResponderJNIClass: jclass?
 
@@ -27,14 +25,14 @@ public class SwiftHelloResponderForward: JNIObjectForward, SwiftHelloResponder {
 
     private static var processedNumber_MethodID_3: jmethodID?
 
-    public func processedNumber( number: Double ) {
+    open func processedNumber( number: Double ) {
         var __args = [jvalue]( repeating: jvalue(), count: 1 )
         var __locals = [jobject]()
         __args[0] = JNIType.encode( value: number, locals: &__locals )
         JNIMethod.CallVoidMethod( object: javaObject, methodName: "processedNumber", methodSig: "(D)V", methodCache: &SwiftHelloResponderForward.processedNumber_MethodID_3, args: &__args, locals: &__locals )
     }
 
-    public func processedNumber( _ _number: Double ) {
+    open func processedNumber( _ _number: Double ) {
         processedNumber( number: _number )
     }
 
@@ -42,14 +40,14 @@ public class SwiftHelloResponderForward: JNIObjectForward, SwiftHelloResponder {
 
     private static var processedText_MethodID_4: jmethodID?
 
-    public func processedText( text: String? ) {
+    open func processedText( text: String? ) {
         var __args = [jvalue]( repeating: jvalue(), count: 1 )
         var __locals = [jobject]()
         __args[0] = JNIType.encode( value: text, locals: &__locals )
         JNIMethod.CallVoidMethod( object: javaObject, methodName: "processedText", methodSig: "(Ljava/lang/String;)V", methodCache: &SwiftHelloResponderForward.processedText_MethodID_4, args: &__args, locals: &__locals )
     }
 
-    public func processedText( _ _text: String? ) {
+    open func processedText( _ _text: String? ) {
         processedText( text: _text )
     }
 

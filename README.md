@@ -1,6 +1,6 @@
 ## Samples for the SwiftAndroid toolchain.
 
-Requires a build of the latest Android toolchain downloadable [here](http://johnholdsworh.com/android_toolchain.tgz),
+Requires a build of the latest Android toolchain downloadable [here](http://johnholdsworth.com/android_toolchain.tgz),
 an [Android NDK](http://developer.android.com/ndk/downloads/index.html) as well as [the Gradle plugin]
 (https://github.com/SwiftJava/swift-android-gradle) on a Ubuntu 15 System. The phone must be api 21
 aka Android v5+ aka Lollipop or better (I used an LG K4.) Finally, make sure the version of swiftc

@@ -7,7 +7,16 @@ aka Android v5+ aka Lollipop or better (I used an LG K4.) Finally, make sure the
 in the toolchain appears first in your path and that the `ANDROID_NDK_HOME` environment variable is
 set to the path to the NDK.
 
-## swifthello
+To create a new application, decide a pair of interfaces to connect too and from your Swift
+code and place them in a [Java Source](https://github.com/SwiftJava/swift-android-samples/blob/master/swifthello/src/main/java/com/jh/SwiftHello.java).
+Use the command `./genswift.sh` in the [SwiftJava Project](https://github.com/SwiftJava/SwiftJava)
+to generate Swift (& Java) sources to include in your application or adapt the
+[genhello.sh](https://github.com/SwiftJava/SwiftJava/blob/master/genhello.sh) script.
+If you only use interfaces/protocols, your app's only
+[Package.swift](https://github.com/SwiftJava/swift-android-samples/blob/master/swifthello/src/main/swift/Package.swift)
+dependency should be the core JNI interfacing code [java_swift](https://github.com/SwiftJava/java_swift).
+
+## 
 
 Simple demo of Swift code accessed over JNI.
 

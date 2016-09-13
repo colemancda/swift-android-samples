@@ -3,9 +3,9 @@
 Requires a build of the latest Android toolchain downloadable [here](http://johnholdsworth.com/android_toolchain.tgz),
 an [Android NDK](http://developer.android.com/ndk/downloads/index.html) as well as [the Gradle plugin]
 (https://github.com/SwiftJava/swift-android-gradle) on a Ubuntu 15 System. The phone must be api 21
-aka Android v5+ aka Lollipop or better (I used an LG K4.) Finally, make sure the version of swiftc
-in the toolchain appears first in your path and that the `ANDROID_NDK_HOME` environment variable is
-set to the path to the NDK.
+aka Android v5+ aka Lollipop or better (I used an LG K4.) Make sure the version of swiftc in the
+toolchain appears first in your path and there is a swift-build from a swift.org toolchain in the
+path and finally, that the `ANDROID_NDK_HOME` environment variable is set to the path to the NDK.
 
 To create a new application, decide on a pair of interfaces to connect to and from your Swift
 code and place them in a [Java Source](https://github.com/SwiftJava/swift-android-samples/blob/master/swifthello/src/main/java/com/jh/SwiftHello.java).

@@ -19,7 +19,7 @@ public func bind( __env: UnsafeMutablePointer<JNIEnv?>, __this: jobject?, __self
 
 class ListenerImpl: SwiftHello_ListenerBase {
 
-    // incoming from Java
+    // incoming from Java activity
     override func processNumber( number: Double ) {
         // outgoing back to Java
         responder.processedNumber( number+42.0 )
@@ -27,6 +27,10 @@ class ListenerImpl: SwiftHello_ListenerBase {
 
     // incoming from Java activity
     override func processText( text: String? ) {
+        for _ in 0..<1000 {
+            let tester = responder.testResponder()!
+            SwiftTestResponder().respond( to: tester )
+        }
         processText( text!, initial: true )
     }
 
@@ -37,13 +41,13 @@ class ListenerImpl: SwiftHello_ListenerBase {
         for _ in 0..<10 {
             out.append( "Hello "+text+"!" )
         }
-        let regexp = try! RegularExpression(pattern:"(\\w+)", options:[])
-        let url = URL( string: "http://www.bbc.co.uk/news" )!
         do {
             NSLog( "Fetch" )
+            let url = URL( string: "http://www.bbc.co.uk/news" )!
             let input = try NSString( contentsOf: url,
                                       encoding: String.Encoding.utf8.rawValue )
             NSLog( "Match" )
+            let regexp = try RegularExpression(pattern:"(\\w+)", options:[])
             for match in regexp.matches(in: String(describing: input), options: [],
                                         range: NSMakeRange(0,input.length) ) {
                                             out.append( ""+input.substring(with:match.range) )
@@ -60,14 +64,14 @@ class ListenerImpl: SwiftHello_ListenerBase {
             ListenerImpl.thread += 1
             let background = ListenerImpl.thread
             DispatchQueue.global().async {
-                for i in 1..<10000 {
+                for i in 1..<100000 {
+                    NSLog("Sleeping")
                     sleep(20)
                     // outgoing back to Java
-                    responder.debug( "Process \(background)/\(i)" )
-                    self.processText("World #\(i)", initial: false)
+                    _ = responder.debug( "Process \(background)/\(i)" )
+                    _ = self.processText("World #\(i)", initial: false)
                 }
             }
         }
     }
-    
 }

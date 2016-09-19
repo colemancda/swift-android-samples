@@ -7,31 +7,31 @@ import android.widget.TextView;
 
 import com.jh.SwiftHello.Listener;
 import com.jh.SwiftHello.Responder;
+import com.jh.SwiftHelloTest.TestListener;
+import com.jh.SwiftHelloTest.TestResponderImpl;
 
 public class SwiftHello extends Activity implements Responder {
 
-    Listener listener;
+    static Listener listener;
     Handler mainHandler;
-
-    /** Called when the activity is first created. */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        loadNativeDependencies();
-        listener = bind( this );
-        listener.processText("World");
-        mainHandler = new Handler(SwiftApp.getContext().getMainLooper());
-    }
 
     private static void loadNativeDependencies() {
         // Load libraries
         System.loadLibrary("swifthello");
     }
 
-    /** Implemented in src/main/swift/Sources/main.swift */
-
-    native Listener bind( Responder self );
+    /** Called when the activity is first created. */
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        mainHandler = new Handler(SwiftApp.getContext().getMainLooper());
+        setContentView(R.layout.main);
+        loadNativeDependencies();
+        listener = bind( this );
+        //	for ( int i=0; i<1000 ; i++ )
+        listener.processText("World");
+    }
 
     public void processedNumber( double number ) {
         TextView myText = (TextView) findViewById(R.id.mytext);
@@ -47,8 +47,16 @@ public class SwiftHello extends Activity implements Responder {
         } );
     }
 
-    public void debug( String msg ) {
+    public String [] debug( String msg ) {
         System.out.println( "Swift: "+msg );
+        return new String [] {"!"+msg, msg+"!"};
     }
 
+    public TestListener testResponder() {
+        return new TestResponderImpl();
+    }
+
+    /** Implemented in swiftproject/Source/main.swift. */
+
+    native Listener bind( Responder self );
 }

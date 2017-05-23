@@ -4,112 +4,112 @@ import Foundation
 
 public class SwiftTestListener: SwiftHelloTest_TestListenerBase {
 
-    override public func booleanMethod( arg0: Bool ) -> Bool {
-        return arg0
+    override public func booleanMethod( arg: Bool ) -> Bool {
+        return arg
     }
 
-    override public func booleanArrayMethod( arg0: [Bool]? ) -> [Bool]? {
-        return arg0
+    override public func booleanArrayMethod( arg: [Bool]? ) -> [Bool]? {
+        return arg
     }
 
-    override public func boolean2dArrayMethod( arg0: [[Bool]]? ) -> [[Bool]]? {
-        return arg0
+    override public func boolean2dArrayMethod( arg: [[Bool]]? ) -> [[Bool]]? {
+        return arg
     }
 
-    override public func byteMethod( arg0: Int8 ) -> Int8 {
-        return arg0
+    override public func byteMethod( arg: Int8 ) -> Int8 {
+        return arg
     }
 
-    override public func byteArrayMethod( arg0: [Int8]? ) -> [Int8]? {
-        return arg0
+    override public func byteArrayMethod( arg: [Int8]? ) -> [Int8]? {
+        return arg
     }
 
-    override public func byte2dArrayMethod( arg0: [[Int8]]? ) -> [[Int8]]? {
-        return arg0
+    override public func byte2dArrayMethod( arg: [[Int8]]? ) -> [[Int8]]? {
+        return arg
     }
 
-    override public func charMethod( arg0: UInt16 ) -> UInt16 {
-        return arg0
+    override public func charMethod( arg: UInt16 ) -> UInt16 {
+        return arg
     }
 
-    override public func charArrayMethod( arg0: [UInt16]? ) -> [UInt16]? {
-        return arg0
+    override public func charArrayMethod( arg: [UInt16]? ) -> [UInt16]? {
+        return arg
     }
 
-    override public func char2dArrayMethod( arg0: [[UInt16]]? ) -> [[UInt16]]? {
-        return arg0
+    override public func char2dArrayMethod( arg: [[UInt16]]? ) -> [[UInt16]]? {
+        return arg
     }
 
-    override public func shortMethod( arg0: Int16 ) -> Int16 {
-        return arg0
+    override public func shortMethod( arg: Int16 ) -> Int16 {
+        return arg
     }
 
-    override public func shortArrayMethod( arg0: [Int16]? ) -> [Int16]? {
-        return arg0
+    override public func shortArrayMethod( arg: [Int16]? ) -> [Int16]? {
+        return arg
     }
 
-    override public func short2dArrayMethod( arg0: [[Int16]]? ) -> [[Int16]]? {
-        return arg0
+    override public func short2dArrayMethod( arg: [[Int16]]? ) -> [[Int16]]? {
+        return arg
     }
 
-    override public func intMethod( arg0: Int ) -> Int {
-        return arg0
+    override public func intMethod( arg: Int ) -> Int {
+        return arg
     }
 
-    override public func intArrayMethod( arg0: [Int32]? ) -> [Int32]? {
-        return arg0
+    override public func intArrayMethod( arg: [Int32]? ) -> [Int32]? {
+        return arg
     }
 
-    override public func int2dArrayMethod( arg0: [[Int32]]? ) -> [[Int32]]? {
-        return arg0
+    override public func int2dArrayMethod( arg: [[Int32]]? ) -> [[Int32]]? {
+        return arg
     }
 
-    override public func longMethod( arg0: Int64 ) -> Int64 {
-        return arg0
+    override public func longMethod( arg: Int64 ) -> Int64 {
+        return arg
     }
 
-    override public func longArrayMethod( arg0: [Int64]? ) -> [Int64]? {
-        return arg0
+    override public func longArrayMethod( arg: [Int64]? ) -> [Int64]? {
+        return arg
     }
 
-    override public func long2dArrayMethod( arg0: [[Int64]]? ) -> [[Int64]]? {
-        return arg0
+    override public func long2dArrayMethod( arg: [[Int64]]? ) -> [[Int64]]? {
+        return arg
     }
 
-    override public func floatMethod( arg0: Float ) -> Float {
-        return arg0
+    override public func floatMethod( arg: Float ) -> Float {
+        return arg
     }
 
-    override public func floatArrayMethod( arg0: [Float]? ) -> [Float]? {
-        return arg0
+    override public func floatArrayMethod( arg: [Float]? ) -> [Float]? {
+        return arg
     }
 
-    override public func float2dArrayMethod( arg0: [[Float]]? ) -> [[Float]]? {
-        return arg0
+    override public func float2dArrayMethod( arg: [[Float]]? ) -> [[Float]]? {
+        return arg
     }
 
-    override public func doubleMethod( arg0: Double ) -> Double {
-        return arg0
+    override public func doubleMethod( arg: Double ) -> Double {
+        return arg
     }
 
-    override public func doubleArrayMethod( arg0: [Double]? ) -> [Double]? {
-        return arg0
+    override public func doubleArrayMethod( arg: [Double]? ) -> [Double]? {
+        return arg
     }
 
-    override public func double2dArrayMethod( arg0: [[Double]]? ) -> [[Double]]? {
-        return arg0
+    override public func double2dArrayMethod( arg: [[Double]]? ) -> [[Double]]? {
+        return arg
     }
 
-    override public func StringMethod( arg0: String? ) -> String? {
-        return arg0
+    override public func StringMethod( arg: String? ) -> String? {
+        return arg
     }
 
-    override public func StringArrayMethod( arg0: [String]? ) -> [String]? {
-        return arg0
+    override public func StringArrayMethod( arg: [String]? ) -> [String]? {
+        return arg
     }
 
-    override public func String2dArrayMethod( arg0: [[String]]? ) -> [[String]]? {
-        return arg0
+    override public func String2dArrayMethod( arg: [[String]]? ) -> [[String]]? {
+        return arg
     }
 
 }

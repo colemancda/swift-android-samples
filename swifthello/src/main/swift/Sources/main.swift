@@ -18,18 +18,18 @@ public func bind( __env: UnsafeMutablePointer<JNIEnv?>, __this: jobject?, __self
 class ListenerImpl: SwiftHello_ListenerBase {
 
     // incoming from Java activity
-    override func processNumber( arg0: Double ) {
+    override func processNumber( number: Double ) {
         // outgoing back to Java
-        responder.processedNumber( arg0+42.0 )
+        responder.processedNumber( number+42.0 )
     }
 
     // incoming from Java activity
-    override func processText( arg0: String? ) {
+    override func processText( text: String? ) {
         for _ in 0..<100 {
             let tester = responder.testResponder()!
             SwiftTestResponder().respond( to: tester )
         }
-        processText( arg0!, initial: true )
+        processText( text!, initial: true )
     }
 
     static var thread = 0
@@ -42,12 +42,11 @@ class ListenerImpl: SwiftHello_ListenerBase {
         }
         do {
             NSLog( "Fetch" )
-	    var enc: UInt = 0
+            var enc: UInt = 0
             let input = try NSString( contentsOf: url, usedEncoding: &enc )
 //                                      encoding: String.Encoding.utf8.rawValue )
             NSLog( "Match" )
             let regexp = try NSRegularExpression(pattern:"(\\w+)", options:[])
-            NSLog( "Match2" )
             for match in regexp.matches(in: String(describing: input), options: [],
                                         range: NSMakeRange(0,input.length) ) {
 
@@ -65,9 +64,9 @@ class ListenerImpl: SwiftHello_ListenerBase {
             ListenerImpl.thread += 1
             let background = ListenerImpl.thread
             DispatchQueue.global().async {
-                for i in 1..<5 {
+                for i in 1..<5000 {
                     NSLog("Sleeping")
-                    sleep(1)
+                    sleep(2)
                     // outgoing back to Java
                     _ = responder.debug( "Process \(background)/\(i)" )
                     _ = self.processText("World #\(i)", initial: false)

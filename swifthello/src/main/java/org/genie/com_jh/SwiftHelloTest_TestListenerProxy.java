@@ -19,12 +19,20 @@ public class SwiftHelloTest_TestListenerProxy implements com.jh.SwiftHelloTest.T
         return __byteArrayMethod( arg );
     }
 
-    /// public abstract byte[][] com.jh.SwiftHelloTest$TestListener.byte2dArrayMethod(byte[][])
+    /// public abstract boolean[][] com.jh.SwiftHelloTest$TestListener.boolean2dArrayMethod(boolean[][])
 
-    public native byte[][] __byte2dArrayMethod( byte[][] arg );
+    public native boolean[][] __boolean2dArrayMethod( boolean[][] arg );
 
-    public byte[][] byte2dArrayMethod( byte[][] arg ) {
-        return __byte2dArrayMethod( arg );
+    public boolean[][] boolean2dArrayMethod( boolean[][] arg ) {
+        return __boolean2dArrayMethod( arg );
+    }
+
+    /// public abstract byte com.jh.SwiftHelloTest$TestListener.byteMethod(byte)
+
+    public native byte __byteMethod( byte arg );
+
+    public byte byteMethod( byte arg ) {
+        return __byteMethod( arg );
     }
 
     /// public abstract boolean com.jh.SwiftHelloTest$TestListener.booleanMethod(boolean)
@@ -43,20 +51,12 @@ public class SwiftHelloTest_TestListenerProxy implements com.jh.SwiftHelloTest.T
         return __booleanArrayMethod( arg );
     }
 
-    /// public abstract boolean[][] com.jh.SwiftHelloTest$TestListener.boolean2dArrayMethod(boolean[][])
+    /// public abstract byte[][] com.jh.SwiftHelloTest$TestListener.byte2dArrayMethod(byte[][])
 
-    public native boolean[][] __boolean2dArrayMethod( boolean[][] arg );
+    public native byte[][] __byte2dArrayMethod( byte[][] arg );
 
-    public boolean[][] boolean2dArrayMethod( boolean[][] arg ) {
-        return __boolean2dArrayMethod( arg );
-    }
-
-    /// public abstract byte com.jh.SwiftHelloTest$TestListener.byteMethod(byte)
-
-    public native byte __byteMethod( byte arg );
-
-    public byte byteMethod( byte arg ) {
-        return __byteMethod( arg );
+    public byte[][] byte2dArrayMethod( byte[][] arg ) {
+        return __byte2dArrayMethod( arg );
     }
 
     /// public abstract char com.jh.SwiftHelloTest$TestListener.charMethod(char)

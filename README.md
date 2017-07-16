@@ -16,7 +16,16 @@ If you only use interfaces/protocols, your app's only
 [Package.swift](https://github.com/SwiftJava/swift-android-samples/blob/master/swifthello/src/main/swift/Package.swift)
 dependency should be the core JNI interfacing code [java_swift](https://github.com/SwiftJava/java_swift).
 
-## 
+This example is coded to work with version 4 of the toolchain which has some additional requirements
+to work around requirements of the Swift port of Foundation. The cache directory used by web operations
+needs to be setup in the enironment variable "TMPDIR". This would usually be the value of
+Context.getCacheDir().getPath() from the java side. In addition, to be able to use SSL you
+need to add a [CARoot info file](http://curl.haxx.se/docs/caextract.html) to the application's
+raw resources and copy it to this cache directory to be picked up by Foundation as follows:
+
+    URLSession.sslCertificateAuthorityFile = URL(fileURLWithPath: cacheDir! + "/cacert.pem")
+
+##
 
 Simple demo of Swift code accessed over JNI.
 

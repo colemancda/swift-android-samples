@@ -17,6 +17,11 @@ public func bind( __env: UnsafeMutablePointer<JNIEnv?>, __this: jobject?, __self
 
 class ListenerImpl: SwiftHello_ListenerBase {
 
+    override func setCacheDir( cacheDir: String? ) {
+        URLSession.sslCertificateAuthorityFile = URL(fileURLWithPath: cacheDir! + "/cacert.pem")
+        setenv("TMPDIR", cacheDir!, 1)
+    }
+
     // incoming from Java activity
     override func processNumber( number: Double ) {
         // outgoing back to Java
@@ -33,7 +38,7 @@ class ListenerImpl: SwiftHello_ListenerBase {
     }
 
     static var thread = 0
-    let url = URL( string: "http://www.bbc.co.uk/" )!
+    let url = URL( string: "https://en.wikipedia.org/wiki/Main_Page" )!
 
     func processText( _ text: String, initial: Bool ) {
         var out = [String]()
@@ -44,13 +49,11 @@ class ListenerImpl: SwiftHello_ListenerBase {
             NSLog( "Fetch" )
             var enc: UInt = 0
             let input = try NSString( contentsOf: url, usedEncoding: &enc )
-//                                      encoding: String.Encoding.utf8.rawValue )
             NSLog( "Match" )
             let regexp = try NSRegularExpression(pattern:"(\\w+)", options:[])
             for match in regexp.matches(in: String(describing: input), options: [],
                                         range: NSMakeRange(0,input.length) ) {
-
-                                            out.append( ""+input.substring(with:match.range) )
+                out.append( ""+input.substring(with:match.range) )
             }
             NSLog( "Display" )
             // outgoing back to Java

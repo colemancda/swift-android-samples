@@ -2,7 +2,6 @@
 package net.zhuoweizhang.swifthello;
 
 import android.app.Application;
-import android.content.Context;
 
 public class SwiftApp extends Application {
 
@@ -10,10 +9,6 @@ public class SwiftApp extends Application {
 
     public static Application getApplication() {
         return sApplication;
-    }
-
-    public static Context getContext() {
-        return getApplication().getApplicationContext();
     }
 
     @Override

@@ -38,31 +38,35 @@ class ListenerImpl: SwiftHello_ListenerBase {
     }
 
     static var thread = 0
+    let session = URLSession(configuration: .default)
     let url = URL( string: "https://en.wikipedia.org/wiki/Main_Page" )!
+    let regexp = try! NSRegularExpression(pattern:"(\\w+)", options:[])
 
     func processText( _ text: String, initial: Bool ) {
         var out = [String]()
         for _ in 0..<10 {
             out.append( "Hello "+text+"!" )
         }
-        do {
-            NSLog( "Fetch" )
-            var enc: UInt = 0
-            let input = try NSString( contentsOf: url, usedEncoding: &enc )
-            NSLog( "Match" )
-            let regexp = try NSRegularExpression(pattern:"(\\w+)", options:[])
-            for match in regexp.matches(in: String(describing: input), options: [],
-                                        range: NSMakeRange(0,input.length) ) {
-                out.append( ""+input.substring(with:match.range) )
+
+        session.dataTask(with: URLRequest(url: url)) {
+            (data, response, error) in
+            NSLog( "Response: \(data?.count ?? -1) \(String(describing: error))")
+            if let data = data, let input = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                for match in self.regexp.matches( in: String(describing: input), options: [],
+                                                  range: NSMakeRange(0,input.length) ) {
+                    out.append( "\(input.substring(with:match.range))" )
+                }
+
+                NSLog( "Display" )
+                // outgoing back to Java
+                responder.processedText( out.joined(separator:", ") )
+
+                var memory = rusage()
+                getrusage(RUSAGE_SELF, &memory)
+                NSLog( "Done \(memory.ru_maxrss) \(text)" )
             }
-            NSLog( "Display" )
-            // outgoing back to Java
-            responder.processedText( out.joined(separator:", ") )
-            NSLog( "Done" )
-        }
-        catch ( let e ) {
-            responder.processedText( "Error" )
-        }
+        }.resume()
+
         if initial {
             ListenerImpl.thread += 1
             let background = ListenerImpl.thread

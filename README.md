@@ -2,7 +2,7 @@
 
 Requires a build of the latest Android toolchain downloadable [here](http://johnholdsworth.com/android_toolchain.tgz),
 an [Android NDK](http://developer.android.com/ndk/downloads/index.html) as well as [the Gradle plugin]
-(https://github.com/SwiftJava/swift-android-gradle) on a Ubuntu 15 System. The phone must be api 21
+(https://github.com/SwiftJava/swift-android-gradle) on a Ubuntu 16.04 System. The phone must be api 21
 aka Android v5+ aka Lollipop or better (I used an LG K4.) Make sure the version of swiftc in the
 toolchain appears first in your path and there is a swift-build from a swift.org toolchain in the
 path and finally, that the `ANDROID_NDK_HOME` environment variable is set to the path to the NDK.
@@ -24,6 +24,13 @@ need to add a [CARoot info file](http://curl.haxx.se/docs/caextract.html) to the
 raw resources and copy it to this cache directory to be picked up by Foundation as follows:
 
     URLSession.sslCertificateAuthorityFile = URL(fileURLWithPath: cacheDir! + "/cacert.pem")
+
+If you don't want peer validation you have the following option (not recommended at all)
+
+    URLSession.verifyPeerSSLCertificate = false
+
+At present there is an issue with exceptions not being thrown correctly in generated code.
+To work round this for now be sure to use URLSession for your web requests.
 
 ##
 

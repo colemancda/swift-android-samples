@@ -80,7 +80,7 @@ public class SwiftHello extends Activity implements Responder {
         return new TestResponderImpl();
     }
 
-    /** Implemented in swiftproject/Source/main.swift. */
+    /** Implemented in src/main/swift/Sources/main.swift */
 
     native Listener bind( Responder self );
 }

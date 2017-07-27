@@ -18,8 +18,8 @@ public func bind( __env: UnsafeMutablePointer<JNIEnv?>, __this: jobject?, __self
 class ListenerImpl: SwiftHello_ListenerBase {
 
     override func setCacheDir( cacheDir: String? ) {
-        URLSession.sslCertificateAuthorityFile = URL(fileURLWithPath: cacheDir! + "/cacert.pem")
-        setenv("TMPDIR", cacheDir!, 1)
+        URLSession.sslCertificateAuthorityFile = URL( fileURLWithPath: cacheDir! + "/cacert.pem" )
+        setenv( "TMPDIR", cacheDir!, 1 )
     }
 
     // incoming from Java activity
@@ -38,9 +38,9 @@ class ListenerImpl: SwiftHello_ListenerBase {
     }
 
     static var thread = 0
-    let session = URLSession(configuration: .default)
+    let session = URLSession( configuration: .default )
     let url = URL( string: "https://en.wikipedia.org/wiki/Main_Page" )!
-    let regexp = try! NSRegularExpression(pattern:"(\\w+)", options:[])
+    let regexp = try! NSRegularExpression( pattern:"(\\w+)", options:[] )
 
     func processText( _ text: String, initial: Bool ) {
         var out = [String]()
@@ -48,13 +48,13 @@ class ListenerImpl: SwiftHello_ListenerBase {
             out.append( "Hello "+text+"!" )
         }
 
-        session.dataTask(with: URLRequest(url: url)) {
+        session.dataTask( with: URLRequest( url: url ) ) {
             (data, response, error) in
-            NSLog( "Response: \(data?.count ?? -1) \(String(describing: error))")
-            if let data = data, let input = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
-                for match in self.regexp.matches( in: String(describing: input), options: [],
-                                                  range: NSMakeRange(0,input.length) ) {
-                    out.append( "\(input.substring(with:match.range))" )
+            NSLog( "Response: \(data?.count ?? -1) \(String( describing: error ))")
+            if let data = data, let input = NSString( data: data, encoding: String.Encoding.utf8.rawValue ) {
+                for match in self.regexp.matches( in: String( describing: input ), options: [],
+                                                  range: NSMakeRange( 0, input.length ) ) {
+                    out.append( "\(input.substring( with: match.range ))" )
                 }
 
                 NSLog( "Display" )
@@ -62,7 +62,7 @@ class ListenerImpl: SwiftHello_ListenerBase {
                 responder.processedText( out.joined(separator:", ") )
 
                 var memory = rusage()
-                getrusage(RUSAGE_SELF, &memory)
+                getrusage( RUSAGE_SELF, &memory )
                 NSLog( "Done \(memory.ru_maxrss) \(text)" )
             }
         }.resume()
@@ -72,11 +72,11 @@ class ListenerImpl: SwiftHello_ListenerBase {
             let background = ListenerImpl.thread
             DispatchQueue.global().async {
                 for i in 1..<5000 {
-                    NSLog("Sleeping")
-                    sleep(2)
+                    NSLog( "Sleeping" )
+                    sleep( 2 )
                     // outgoing back to Java
                     _ = responder.debug( "Process \(background)/\(i)" )
-                    _ = self.processText("World #\(i)", initial: false)
+                    self.processText( "World #\(i)", initial: false )
                 }
             }
         }

@@ -29,9 +29,6 @@ If you don't want peer validation you have the following option (not recommended
 
     URLSession.verifyPeerSSLCertificate = false
 
-At present there is an issue with exceptions not being thrown correctly in generated code.
-To work round this for now be sure to use URLSession for your web requests.
-
 ##
 
 Simple demo of Swift code accessed over JNI.

@@ -1,14 +1,12 @@
 ## Samples for the SwiftAndroid toolchain.
 
-Requires a build of the latest Android toolchain downloadable [here](http://johnholdsworth.com/android_toolchain.tgz),
-an [Android NDK](http://developer.android.com/ndk/downloads/index.html) as well as [the Gradle plugin]
-(https://github.com/SwiftJava/swift-android-gradle) on a Ubuntu 16.04 System. The phone must be api 21
-aka Android v5+ aka Lollipop or better (I used an LG K4.) Make sure the version of swiftc in the
-toolchain appears first in your path and there is a swift-build from a swift.org toolchain in the
-path and finally, that the `ANDROID_NDK_HOME` environment variable is set to the path to the NDK.
+Requires a build of the latest Android toolchain downloadable [here](http://johnholdsworth.com/android_toolchain.tgz).
+The gradle plugin used to build is now part of the toolchain which is installed by running `swift-install/setup,sh`.
+On Linux, make sure the `usr/bin` driectory of the toolchain you want to use is in your path when you
+run this script.The phone must be api 21 aka Android v5+ aka Lollipop or better (I used an LG K4.)
 
 To create a new application, decide on a pair of interfaces to connect to and from your Swift
-code and place them in a [Java Source](https://github.com/SwiftJava/swift-android-samples/blob/master/swifthello/src/main/java/com/jh/SwiftHello.java).
+code and place them in a [Java Source](https://github.com/SwiftJava/swift-android-samples/blob/master/swifthello/src/main/java/com/jh/SwiftHelloBinding.java).
 Use the command `./genswift.sh` in the [SwiftJava Project](https://github.com/SwiftJava/SwiftJava)
 to generate Swift (& Java) sources to include in your application or adapt the
 [genhello.sh](https://github.com/SwiftJava/SwiftJava/blob/master/genhello.sh) script.

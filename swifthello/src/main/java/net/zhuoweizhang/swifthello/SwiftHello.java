@@ -7,31 +7,34 @@ import android.widget.TextView;
 import android.content.Context;
 import java.io.*;
 
-import com.jh.SwiftHello.Listener;
-import com.jh.SwiftHello.Responder;
+import com.jh.SwiftHelloBinding.Listener;
+import com.jh.SwiftHelloBinding.Responder;
 import com.jh.SwiftHelloTest.TestListener;
 import com.jh.SwiftHelloTest.TestResponderImpl;
 
 public class SwiftHello extends Activity implements Responder {
 
     static Listener listener;
-    Handler mainHandler;
 
     private static void loadNativeDependencies() {
         // Load libraries
         System.loadLibrary("swifthello");
     }
 
+    /** Implemented in src/main/swift/Sources/main.swift */
+
+    @SuppressWarnings("JniMissingFunction")
+    native Listener bind( Responder self );
+
     /** Called when the activity is first created. */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Context context = SwiftApp.getApplication().getApplicationContext();
-        mainHandler = new Handler(context.getMainLooper());
         setContentView(R.layout.main);
         loadNativeDependencies();
         listener = bind( this );
+        Context context = SwiftApp.getApplication().getApplicationContext();
         String cacheDir = context.getCacheDir().getPath();
         String pemfile = cacheDir + "/cacert.pem";
         InputStream pemStream = SwiftApp.getApplication().getResources().openRawResource(R.raw.cacert);
@@ -79,8 +82,4 @@ public class SwiftHello extends Activity implements Responder {
     public TestListener testResponder() {
         return new TestResponderImpl();
     }
-
-    /** Implemented in src/main/swift/Sources/main.swift */
-
-    native Listener bind( Responder self );
 }

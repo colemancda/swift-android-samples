@@ -1,8 +1,11 @@
 .build
 build
+jniLibs
 Packages
 *.class
 *.so
 *.apk
+*.pins
 local.properties
 .gradle
+.DS_Store

@@ -7,10 +7,15 @@ import android.widget.TextView;
 import android.content.Context;
 import java.io.*;
 
-import com.jh.SwiftHelloBinding.Listener;
-import com.jh.SwiftHelloBinding.Responder;
-import com.jh.SwiftHelloTest.TestListener;
-import com.jh.SwiftHelloTest.TestResponderImpl;
+import com.johnholdsworth.bindings.SwiftHelloBinding.Listener;
+import com.johnholdsworth.bindings.SwiftHelloBinding.Responder;
+
+import com.johnholdsworth.bindings.SwiftHelloTypes.TextListener;
+import com.johnholdsworth.bindings.SwiftHelloTypes.ListenerMap;
+import com.johnholdsworth.bindings.SwiftHelloTypes.ListenerMapList;
+
+import com.johnholdsworth.bindings.SwiftHelloTest.TestListener;
+import com.johnholdsworth.bindings.SwiftHelloTest.SwiftTestListener;
 
 public class SwiftHello extends Activity implements Responder {
 
@@ -40,7 +45,10 @@ public class SwiftHello extends Activity implements Responder {
         InputStream pemStream = SwiftApp.getApplication().getResources().openRawResource(R.raw.cacert);
         copyResource(pemStream, pemfile);
         listener.setCacheDir(cacheDir);
-        //	for ( int i=0; i<1000 ; i++ )
+        TestListener tester = listener.testResponder(2);
+        for ( int i=0; i<100 ; i++ ) {
+            new SwiftTestListener().respond( tester );
+        }
         listener.processText("World");
     }
 
@@ -74,12 +82,36 @@ public class SwiftHello extends Activity implements Responder {
         } );
     }
 
-    public String [] debug( String msg ) {
+    public void processedTextListener(TextListener text) {
+        processedText( text.getText() );
+    }
+
+    public void processedTextListenerArray(TextListener text[]) {
+        processedText( text[0].getText() );
+    }
+
+    public void processedTextListener2dArray(TextListener text[][]) {
+        processedText( text[0][0].getText() );
+    }
+
+    public void processMap(ListenerMap map) {
+        listener.processedMap( map );
+    }
+
+    public void processMapList(ListenerMapList map) {
+        listener.processedMapList( map );
+    }
+
+   public String [] debug( String msg ) {
         System.out.println( "Swift: "+msg );
         return new String [] {"!"+msg, msg+"!"};
     }
 
-    public TestListener testResponder() {
-        return new TestResponderImpl();
+    public TestListener testResponder( int loopback ) {
+        SwiftTestListener test = new SwiftTestListener();
+        if ( loopback > 0 ) {
+            test.loopback = listener.testResponder( loopback - 1 );
+        }
+        return test;
     }
 }

@@ -14,7 +14,8 @@ public func bind_samples( __env: UnsafeMutablePointer<JNIEnv?>, __this: jobject?
     responder = SwiftHelloBinding_ResponderForward( javaObject: __self )
 
     // This Swift instance receives native calls from Java
-    return SwiftListenerImpl().withJavaObject { JNI.api.NewLocalRef( JNI.env, $0 ) }
+    var locals = [jobject]()
+    return SwiftListenerImpl().localJavaObject( &locals )
 }
 
 // kotlin's call to bind the Java and Swift sections of app
@@ -25,7 +26,8 @@ public func bind_kotlin( __env: UnsafeMutablePointer<JNIEnv?>, __this: jobject?,
     responder = SwiftHelloBinding_ResponderForward( javaObject: __self )
 
     // This Swift instance receives native calls from Java
-    return SwiftListenerImpl().withJavaObject { JNI.api.NewLocalRef( JNI.env, $0 ) }
+    var locals = [jobject]()
+    return SwiftListenerImpl().localJavaObject( &locals )
 }
 
 struct MyText: SwiftHelloTypes_TextListener {
@@ -62,23 +64,27 @@ class SwiftListenerImpl: SwiftHelloBinding_Listener {
 
     // incoming from Java activity
     func processText( text: String? ) {
-        for _ in 0..<100 {
+        basicTests(reps: 10)
+        processText( text!, initial: true )
+    }
+
+    func basicTests(reps: Int) {
+        for _ in 0..<reps {
             let tester = responder.testResponder( loopback: 1 )!
             SwiftTestResponder().respond( to: tester )
         }
-        for i in 0..<100 {
+        for i in 0..<reps {
             var map = [String: SwiftHelloTypes_TextListener]()
             map["KEY\(i)"] = MyText("VALUE\(i)")
             map["KEY\(i+1)"] = MyText("VALUE\(i+1)")
             responder.processMap( map: map )
         }
-        for i in 0..<100 {
+        for i in 0..<reps {
             var map = [String: [SwiftHelloTypes_TextListener]]()
             map["KEY\(i)"] = [MyText("VALUE\(i)"), MyText("VALUE\(i)a")]
             map["KEY\(i)"] = [MyText("VALUE\(i+1)"), MyText("VALUE\(i+1)a")]
             responder.processMapList( map: map )
         }
-        processText( text!, initial: true )
     }
 
     func processedMap( map: [String: SwiftHelloTypes_TextListener]? ) {

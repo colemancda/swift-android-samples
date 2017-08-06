@@ -46,7 +46,7 @@ public class SwiftHello extends Activity implements Responder {
         copyResource(pemStream, pemfile);
         listener.setCacheDir(cacheDir);
         TestListener tester = listener.testResponder(2);
-        for ( int i=0; i<100 ; i++ ) {
+        for ( int i=0; i<10 ; i++ ) {
             new SwiftTestListener().respond( tester );
         }
         listener.processText("World");

@@ -7,15 +7,17 @@ import android.widget.TextView;
 import android.content.Context;
 import java.io.*;
 
-import com.johnholdsworth.bindings.SwiftHelloBinding.Listener;
-import com.johnholdsworth.bindings.SwiftHelloBinding.Responder;
+import com.johnholdsworth.swiftbindings.SwiftHelloBinding.Listener;
+import com.johnholdsworth.swiftbindings.SwiftHelloBinding.Responder;
 
-import com.johnholdsworth.bindings.SwiftHelloTypes.TextListener;
-import com.johnholdsworth.bindings.SwiftHelloTypes.ListenerMap;
-import com.johnholdsworth.bindings.SwiftHelloTypes.ListenerMapList;
+import com.johnholdsworth.swiftbindings.SwiftHelloTypes.TextListener;
+import com.johnholdsworth.swiftbindings.SwiftHelloTypes.ListenerMap;
+import com.johnholdsworth.swiftbindings.SwiftHelloTypes.ListenerMapList;
+import com.johnholdsworth.swiftbindings.SwiftHelloTypes.StringMap;
+import com.johnholdsworth.swiftbindings.SwiftHelloTypes.StringMapList;
 
-import com.johnholdsworth.bindings.SwiftHelloTest.TestListener;
-import com.johnholdsworth.bindings.SwiftHelloTest.SwiftTestListener;
+import com.johnholdsworth.swiftbindings.SwiftHelloTest.TestListener;
+import com.johnholdsworth.swiftbindings.SwiftHelloTest.SwiftTestListener;
 
 public class SwiftHello extends Activity implements Responder {
 
@@ -45,10 +47,20 @@ public class SwiftHello extends Activity implements Responder {
         InputStream pemStream = SwiftApp.getApplication().getResources().openRawResource(R.raw.cacert);
         copyResource(pemStream, pemfile);
         listener.setCacheDir(cacheDir);
+
+        try {
+            listener.throwException();
+        }
+        catch (Exception e) {
+            System.out.println("**** Got exception ****");
+            e.printStackTrace();
+        }
+
         TestListener tester = listener.testResponder(2);
         for ( int i=0; i<10 ; i++ ) {
             new SwiftTestListener().respond( tester );
         }
+
         listener.processText("World");
     }
 
@@ -102,7 +114,15 @@ public class SwiftHello extends Activity implements Responder {
         listener.processedMapList( map );
     }
 
-   public String [] debug( String msg ) {
+    public void processedStringMap(StringMap map) {
+        System.out.println("StringMap: "+map);
+    }
+
+    public void processedStringMapList(StringMapList map) {
+        System.out.println("StringMapList: "+map);
+    }
+
+    public String [] debug( String msg ) {
         System.out.println( "Swift: "+msg );
         return new String [] {"!"+msg, msg+"!"};
     }

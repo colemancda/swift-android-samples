@@ -5,7 +5,15 @@ Packages
 *.class
 *.so
 *.apk
-*.pins
 local.properties
 .gradle
 .DS_Store
+*.pins
+.build
+build
+jniLibs
+Packages
+*.class
+*.so
+*.apk
+vcs.xml

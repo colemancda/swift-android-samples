@@ -122,6 +122,10 @@ public class SwiftHello extends Activity implements Responder {
         System.out.println("StringMapList: "+map);
     }
 
+    public double throwException() throws Exception {
+        throw new Exception("Java test exception");
+    }
+
     public String [] debug( String msg ) {
         System.out.println( "Swift: "+msg );
         return new String [] {"!"+msg, msg+"!"};

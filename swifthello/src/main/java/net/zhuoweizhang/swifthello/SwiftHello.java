@@ -48,20 +48,42 @@ public class SwiftHello extends Activity implements Responder {
         copyResource(pemStream, pemfile);
         listener.setCacheDir(cacheDir);
 
-        try {
-            listener.throwException();
+        basicTests(10);
+        listener.processText("World");
+    }
+
+    private void basicTests( int reps ) {
+        for ( int i=0; i<reps ; i++ ) {
+            try {
+                listener.throwException();
+            }
+            catch (Exception e) {
+                System.out.println("**** Got exception ****");
+                e.printStackTrace();
+            }
         }
-        catch (Exception e) {
-            System.out.println("**** Got exception ****");
-            e.printStackTrace();
+
+        for ( int i=0; i<reps ; i++ ) {
+            listener.processStringMap(new StringMap() {
+                private static final long serialVersionUID = 1L;
+
+                {
+                    put("hello", "world");
+                }
+            });
+            listener.processStringMapList(new StringMapList() {
+                private static final long serialVersionUID = 1L;
+
+                {
+                    put("hello", new String [] {"world"});
+                }
+            });
         }
 
         TestListener tester = listener.testResponder(2);
-        for ( int i=0; i<10 ; i++ ) {
+        for ( int i=0; i<reps ; i++ ) {
             new SwiftTestListener().respond( tester );
         }
-
-        listener.processText("World");
     }
 
     private void copyResource( InputStream in, String to ) {

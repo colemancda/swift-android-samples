@@ -4,6 +4,7 @@ Requires a build of the latest Android toolchain downloadable [here](http://john
 The gradle plugin used to build is now part of the toolchain which is installed by running `swift-install/setup,sh`.
 On Linux, make sure the `usr/bin` driectory of the toolchain you want to use is in your path when you
 run this script.The phone must be api 21 aka Android v5+ aka Lollipop or better (I used an LG K4.)
+The example app now uses SQLite which requires Beta III of the toolchain released 27/08/2017.
 
 To create a new application, decide on a pair of interfaces to connect to and from your Swift
 code and place them in a [Java Source](https://github.com/SwiftJava/swift-android-samples/blob/master/swifthello/src/main/java/com/jh/SwiftHelloBinding.java).

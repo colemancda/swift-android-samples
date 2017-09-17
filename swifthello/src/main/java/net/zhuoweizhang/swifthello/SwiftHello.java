@@ -148,6 +148,10 @@ public class SwiftHello extends Activity implements Responder {
         throw new Exception("Java test exception");
     }
 
+    public void onMainThread(Runnable runnable) {
+        runOnUiThread(runnable);
+    }
+
     public String [] debug( String msg ) {
         System.out.println( "Swift: "+msg );
         return new String [] {"!"+msg, msg+"!"};

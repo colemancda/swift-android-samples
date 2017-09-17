@@ -9,6 +9,7 @@ local.properties
 .gradle
 .DS_Store
 *.pins
+*.resolved
 .build
 build
 jniLibs

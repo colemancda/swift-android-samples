@@ -48,7 +48,7 @@ public class SwiftHello extends Activity implements Responder {
         copyResource(pemStream, pemfile);
         listener.setCacheDir(cacheDir);
 
-        basicTests(10);
+        //basicTests(10);
         listener.processText("World");
     }
 

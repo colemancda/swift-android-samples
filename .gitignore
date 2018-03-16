@@ -22,3 +22,5 @@ vcs.xml
 swifthello/.idea
 
 swifthello/swifthello.iml
+
+swifthello/src/main/swift/libswifthello.so.xcodeproj

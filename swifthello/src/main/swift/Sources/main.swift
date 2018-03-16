@@ -10,6 +10,7 @@ import XCTest
 import AndroidInjection
 import Fortify
 
+import Bluetooth
 // responder variable moved to Statics.swift
 // so it isn't reset when class is injected.
 //// link back to Java side of Application
@@ -159,13 +160,29 @@ class SwiftListenerImpl: SwiftHelloBinding_Listener {
     // incoming from Java activity
     func processNumber( number: Double ) {
         // outgoing back to Java
-        responder.processedNumber( number: number+42.0 )
+        responder.processedNumber( number: number + 99.0 )
     }
 
     // incoming from Java activity
     func processText( text: String? ) {
-        basicTests(reps: 10)
-        processText( text!, initial: true )
+        
+        NSLog("\(#function) input: " + (text ?? "Nil"))
+        NSLog("Hello Swift! from \(#function)")
+        //basicTests(reps: 10)
+        //processText( text!, initial: true )
+        
+        let uuid128bit = BluetoothUUID(rawValue: "60F14FE2-F972-11E5-B84F-23E070D5A8C7")!
+        let uuid16bit = BluetoothUUID(rawValue: "FEA9")!
+        let address = Address(rawValue: "00:1A:7D:DA:71:13")!
+        
+        let swiftText = """
+        PureSwift/Bluetooth:
+        BluetoothUUID: \(uuid128bit)
+        BluetoothUUID: \(uuid16bit)
+        Bluetooth.Address: \(address)
+        """
+        
+        responder.processedText(swiftText)
     }
 
     func basicTests(reps: Int) {

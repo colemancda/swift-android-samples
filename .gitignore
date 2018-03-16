@@ -18,3 +18,7 @@ Packages
 *.so
 *.apk
 vcs.xml
+
+swifthello/.idea
+
+swifthello/swifthello.iml
